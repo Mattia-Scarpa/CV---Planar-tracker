@@ -12,6 +12,12 @@ using namespace cv;
 
 
 
+void detectObj() {
+  ;
+}
+
+
+
 int main(int argc, char const *argv[]) {
 
   // Defining Image path
@@ -48,6 +54,8 @@ int main(int argc, char const *argv[]) {
 
       cout << "I am doing something" << endl;
       if (detected) {
+        detectObj();
+        detected = false;
         // detecting object given in image objects
       }
     }

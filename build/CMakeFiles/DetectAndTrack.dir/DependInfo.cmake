@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/Lab_6/src/main.cpp" "/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/Lab_6/build/CMakeFiles/DetectAndTrack.dir/src/main.cpp.o"
+  "/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/src/main.cpp" "/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles/DetectAndTrack.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

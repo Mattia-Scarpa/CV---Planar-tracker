@@ -42,20 +42,22 @@ int main(int argc, char const *argv[]) {
     cout << i << ": " << imagesPath[i].substr(7) << endl;
   }*/
 
-  dataPaths = {"../data/*.avi", "../data/*.mov", "../data/*.mp4"}
+  dataPaths = {"../data/*.avi", "../data/*.mov", "../data/*.mp4"};
 
-  cv::VideoCapture cap("video.avi");
+  cv::VideoCapture cap("video.mov");
   bool detected = true; // chek if objects has been detected from the first frame
 
   if(cap.isOpened()) { // check if we succeeded
     for(;;) {
       Mat frame;
       cap >> frame;
+      imshow("win", frame);
 
       cout << "I am doing something" << endl;
       if (detected) {
         detectObj();
         detected = false;
+        cout << "I have done it" << endl;
         // detecting object given in image objects
       }
     }

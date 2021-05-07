@@ -7,9 +7,10 @@ using namespace std;
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/xfeatures2d.hpp>
-#include <opencv2/core.hpp>
 
 using namespace cv;
+
+
 
 int main(int argc, char const *argv[]) {
 
@@ -38,7 +39,7 @@ int main(int argc, char const *argv[]) {
   dataPaths = {"../data/*.avi", "../data/*.mov", "../data/*.mp4"}
 
   cv::VideoCapture cap("video.avi");
-  bool detected = false; // chek if objects has been detected from the first frame
+  bool detected = true; // chek if objects has been detected from the first frame
 
   if(cap.isOpened()) { // check if we succeeded
     for(;;) {
@@ -46,10 +47,13 @@ int main(int argc, char const *argv[]) {
       cap >> frame;
 
       cout << "I am doing something" << endl;
+      if (detected) {
+        // detecting object given in image objects
+      }
     }
   }
   else {
-    cout <<
+    cout << "No video of the correct format found" << endl;
   }
 
   return 0;

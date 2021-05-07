@@ -44,7 +44,7 @@ int main(int argc, char const *argv[]) {
 
   dataPaths = {"../data/*.avi", "../data/*.mov", "../data/*.mp4"};
 
-  cv::VideoCapture cap("video.mov");
+  cv::VideoCapture cap("../data/video.mov");
   bool detected = true; // chek if objects has been detected from the first frame
 
   if(cap.isOpened()) { // check if we succeeded
@@ -52,6 +52,7 @@ int main(int argc, char const *argv[]) {
       Mat frame;
       cap >> frame;
       imshow("win", frame);
+      waitKey(1);
 
       cout << "I am doing something" << endl;
       if (detected) {

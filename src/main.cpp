@@ -11,9 +11,32 @@ using namespace std;
 using namespace cv;
 
 
+int MAX_FEATURES = 1000;
+int MIN_MATCH_COUNT = 10;
 
-void detectObj() {
-  ;
+/* void detectObj(): takes an image src where to detect the objects contained in obj vectos. Bot src either objs vector must be in BGR color space */
+
+void detectObj(Mat& src, vector<Mat>& objs) {
+
+  // Convert given image from BGR color space to gray level
+  Mat sourceImg = src.clone();
+  cvtColor(sourceImg, sourceImg, COLOR_BGR2GRAY);
+
+  // creating the SIFT objects
+  Ptr<SIFT> sift = SIFT::create(MAX_FEATURES);
+
+  // detecting keypoints for source image
+  vector<KeyPoint> keypointsSrc;
+  Mat descriptorsSrc;
+  sift -> detectAndCompute(sourceImg, Mat(), keypointsSrc, descriptorsSrc);
+  cout << keypointsSrc[0].pt << endl;
+
+  vector<vector<KeyPoint>> keypointsObjs;
+  vector<Mat> descriptorsObjs;
+  for (size_t i(0); i < objs.size(); i++) {
+
+  }
+
 }
 
 
@@ -55,8 +78,12 @@ int main(int argc, char const *argv[]) {
   }
 
   cout << "A total of " << videosPath.size() << " objects images to detect has been found!" << endl;
+
+  vector<Mat> objects;
   for (size_t i(0); i < videosPath.size(); i++) {
     cout << i << ": " << videosPath[i].substr(7) << endl;
+    objects.push_back(imread(videosPath[i]));
+
   }
 
 
@@ -74,9 +101,8 @@ int main(int argc, char const *argv[]) {
 
       //cout << "I am doing something" << endl;
       if (detected) {
-        detectObj();
+        detectObj(frame, objects);
         detected = false;
-        cout << "I have done it" << endl;
         // detecting object given in image objects
       }
     }

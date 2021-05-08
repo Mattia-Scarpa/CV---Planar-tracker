@@ -58,7 +58,7 @@ int main(int argc, char const *argv[]) {
   for (size_t i(0); i < videosPath.size(); i++) {
     cout << i << ": " << videosPath[i].substr(7) << endl;
   }
-  
+
 
   cv::VideoCapture cap(videosPath[0]);
   bool detected = true; // chek if objects has been detected from the first frame

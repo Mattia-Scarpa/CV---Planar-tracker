@@ -20,6 +20,7 @@ void detectObj(Mat& src, vector<Mat>& objs) {
 
   // Convert given image from BGR color space to gray level
   Mat sourceImg = src.clone();
+  
   cvtColor(sourceImg, sourceImg, COLOR_BGR2GRAY);
 
   // creating the SIFT objects

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libinclude.a  CMakeFiles/include.dir/tracker.cpp.o
+/usr/bin/ranlib libinclude.a

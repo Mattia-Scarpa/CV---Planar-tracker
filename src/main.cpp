@@ -20,7 +20,7 @@ void detectObj(Mat& src, vector<Mat>& objs) {
 
   // Convert given image from BGR color space to gray level
   Mat sourceImg = src.clone();
-  
+
   cvtColor(sourceImg, sourceImg, COLOR_BGR2GRAY);
 
   // creating the SIFT objects
@@ -61,7 +61,6 @@ int main(int argc, char const *argv[]) {
   }
 
   cout << "A total of " << imagesPath.size() << " objects images to detect has been found!" << endl;
-
   for (size_t i(0); i < imagesPath.size(); i++) {
     cout << i << ": " << imagesPath[i].substr(7) << endl;
   }

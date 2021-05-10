@@ -16,7 +16,7 @@ link_directories(${OPENCV_LIB_DIR})
 add_executable (${PROJECT_NAME} "src/main.cpp")
 
 
-#add_subdirectory(include)
+add_subdirectory(include)
 
-target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} ) #include
+target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} include)
 

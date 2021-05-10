@@ -1,3 +1,6 @@
 /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles/rebuild_cache.dir
 /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles/edit_cache.dir
 /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles/DetectAndTrack.dir
+/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include/CMakeFiles/rebuild_cache.dir
+/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include/CMakeFiles/edit_cache.dir
+/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include/CMakeFiles/include.dir

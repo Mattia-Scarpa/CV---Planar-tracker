@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(CMAKE_COMMAND) -E cmake_progress_start /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include/CMakeFiles/progress.marks
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(MAKE) -f CMakeFiles/Makefile2 include/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(MAKE) -f CMakeFiles/Makefile2 include/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,71 +97,60 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(MAKE) -f CMakeFiles/Makefile2 include/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(MAKE) -f CMakeFiles/Makefile2 include/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named DetectAndTrack
+# Convenience name for target.
+include/CMakeFiles/include.dir/rule:
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(MAKE) -f CMakeFiles/Makefile2 include/CMakeFiles/include.dir/rule
+.PHONY : include/CMakeFiles/include.dir/rule
 
-# Build rule for target.
-DetectAndTrack: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 DetectAndTrack
-.PHONY : DetectAndTrack
+# Convenience name for target.
+include: include/CMakeFiles/include.dir/rule
 
-# fast build rule for target.
-DetectAndTrack/fast:
-	$(MAKE) -f CMakeFiles/DetectAndTrack.dir/build.make CMakeFiles/DetectAndTrack.dir/build
-.PHONY : DetectAndTrack/fast
-
-#=============================================================================
-# Target rules for targets named include
-
-# Build rule for target.
-include: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 include
 .PHONY : include
 
 # fast build rule for target.
 include/fast:
-	$(MAKE) -f include/CMakeFiles/include.dir/build.make include/CMakeFiles/include.dir/build
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(MAKE) -f include/CMakeFiles/include.dir/build.make include/CMakeFiles/include.dir/build
 .PHONY : include/fast
 
-src/main.o: src/main.cpp.o
+tracker.o: tracker.cpp.o
 
-.PHONY : src/main.o
+.PHONY : tracker.o
 
 # target to build an object file
-src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/DetectAndTrack.dir/build.make CMakeFiles/DetectAndTrack.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
+tracker.cpp.o:
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(MAKE) -f include/CMakeFiles/include.dir/build.make include/CMakeFiles/include.dir/tracker.cpp.o
+.PHONY : tracker.cpp.o
 
-src/main.i: src/main.cpp.i
+tracker.i: tracker.cpp.i
 
-.PHONY : src/main.i
+.PHONY : tracker.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/DetectAndTrack.dir/build.make CMakeFiles/DetectAndTrack.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+tracker.cpp.i:
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(MAKE) -f include/CMakeFiles/include.dir/build.make include/CMakeFiles/include.dir/tracker.cpp.i
+.PHONY : tracker.cpp.i
 
-src/main.s: src/main.cpp.s
+tracker.s: tracker.cpp.s
 
-.PHONY : src/main.s
+.PHONY : tracker.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/DetectAndTrack.dir/build.make CMakeFiles/DetectAndTrack.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+tracker.cpp.s:
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(MAKE) -f include/CMakeFiles/include.dir/build.make include/CMakeFiles/include.dir/tracker.cpp.s
+.PHONY : tracker.cpp.s
 
 # Help Target
 help:
@@ -171,11 +160,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... DetectAndTrack"
 	@echo "... include"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... tracker.o"
+	@echo "... tracker.i"
+	@echo "... tracker.s"
 .PHONY : help
 
 
@@ -187,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

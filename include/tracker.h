@@ -53,5 +53,10 @@ private:
   std::vector<std::vector<cv::KeyPoint>> keypointsObjs;
   std::vector<cv::Mat> descriptorsObjs;
 
+  std::vector<std::vector<cv::DMatch>> matches;
+
+  std::vector<std::vector<cv::Point2f>> objPts;
+  std::vector<std::vector<cv::Point2f>> srcPts;
+  std::vector<cv::Mat> H;
 
 };

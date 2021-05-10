@@ -1,41 +1,11 @@
-#include <iostream>
+#include <tracker.h>
 
 using namespace std;
-
-#include <opencv2/core.hpp>
-#include <opencv2/opencv.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/xfeatures2d.hpp>
-
 using namespace cv;
 
 
 int MAX_FEATURES = 1000;
 int MIN_MATCH_COUNT = 10;
-
-/* void detectObj(): takes an image src where to detect the objects contained in obj vectos. Bot src either objs vector must be in BGR color space */
-
-void detectObj(Mat& src, vector<Mat>& objs) {
-
-  // Convert given image from BGR color space to gray level
-  Mat sourceImg = src.clone();
-
-  cvtColor(sourceImg, sourceImg, COLOR_BGR2GRAY);
-
-  // creating the SIFT objects
-  Ptr<SIFT> sift = SIFT::create(MAX_FEATURES);
-
-  // detecting keypoints for source image
-  vector<KeyPoint> keypointsSrc;
-  Mat descriptorsSrc;
-  sift -> detectAndCompute(sourceImg, Mat(), keypointsSrc, descriptorsSrc);
-  cout << keypointsSrc[0].pt << endl;
-
-  vector<vector<KeyPoint>> keypointsObjs;
-  vector<Mat> descriptorsObjs;
-
-}
 
 
 
@@ -98,7 +68,6 @@ int main(int argc, char const *argv[]) {
 
       //cout << "I am doing something" << endl;
       if (detected) {
-        detectObj(frame, objects);
         detected = false;
         // detecting object given in image objects
       }

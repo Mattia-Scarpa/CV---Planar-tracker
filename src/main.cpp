@@ -34,9 +34,6 @@ void detectObj(Mat& src, vector<Mat>& objs) {
 
   vector<vector<KeyPoint>> keypointsObjs;
   vector<Mat> descriptorsObjs;
-  for (size_t i(0); i < objs.size(); i++) {
-
-  }
 
 }
 

@@ -18,14 +18,14 @@ public:
 
   // public fucntions
 
-  void addSource(cv::Mat& src);
+  void addSource(cv::Mat src);
 
-  void addObj(cv::Mat& srcObj);
+  void addObj(cv::Mat srcObj);
 
-  void addObj(std::vector<cv::Mat>& srcObj);
+  void addObj(std::vector<cv::Mat> srcObj);
 
 
-  void changeSource(cv::Mat& src);
+  void changeSource(cv::Mat src);
 
   void detectSource(std::vector<cv::KeyPoint>& kPts, cv::Mat& descriptors);
 
@@ -58,5 +58,6 @@ private:
   std::vector<std::vector<cv::Point2f>> objPts;
   std::vector<std::vector<cv::Point2f>> srcPts;
   std::vector<cv::Mat> H;
+  std::vector<std::vector<char>> inliers;
 
 };

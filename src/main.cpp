@@ -27,9 +27,12 @@ int main(int argc, char const *argv[]) {
     return 0;
   }
 
+  vector<Mat> objects;
+
   cout << "A total of " << imagesPath.size() << " objects images to detect has been found!" << endl;
   for (size_t i(0); i < imagesPath.size(); i++) {
     cout << i << ": " << imagesPath[i].substr(7) << endl;
+    objects.push_back(imread(imagesPath[i]));
   }
 
 
@@ -46,16 +49,17 @@ int main(int argc, char const *argv[]) {
 
   cout << "A total of " << videosPath.size() << " objects images to detect has been found!" << endl;
 
-  vector<Mat> objects;
+
   for (size_t i(0); i < videosPath.size(); i++) {
     cout << i << ": " << videosPath[i].substr(7) << endl;
-    objects.push_back(imread(videosPath[i]));
-
   }
+
+
 
 
   cv::VideoCapture cap(videosPath[0]);
   bool detected = true; // chek if objects has been detected from the first frame
+  tracker* track = new tracker(MAX_FEATURES, MIN_MATCH_COUNT);
 
   if(cap.isOpened()) { // check if we succeeded
     for(;;) {
@@ -69,7 +73,16 @@ int main(int argc, char const *argv[]) {
       //cout << "I am doing something" << endl;
       if (detected) {
         detected = false;
+        track->addSource(frame);
+        track->addObj(objects);
         // detecting object given in image objects
+        vector<KeyPoint> k;
+        vector<vector<KeyPoint>> v;
+        Mat m;
+        vector<Mat> d;
+        track->detectSource(k,m);
+        track->detectAllObjects(v,d);
+        track->matchAllObjects();
       }
     }
   }

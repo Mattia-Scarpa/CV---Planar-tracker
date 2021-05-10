@@ -103,12 +103,7 @@
       H.push_back(homography);
       inliers.push_back(inliersTemp);
     }
-
-
-
-
     // get the keypoints from the good matches
-
     std::string wName = "match ";
     cv::Mat matchedImg;
     for(size_t i(0); i<objects.size(); i++) {
@@ -123,7 +118,7 @@
   }
 
 
-    void tracker::detectObject(cv::Mat& obj, std::vector<cv::KeyPoint>& kPts, cv::Mat& descriptors) {
+  void tracker::detectObject(cv::Mat& obj, std::vector<cv::KeyPoint>& kPts, cv::Mat& descriptors) {
       sift -> detectAndCompute(obj, cv::Mat(), kPts, descriptors);
       objects.push_back(obj);
       keypointsObjs.push_back(kPts);

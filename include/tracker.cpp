@@ -130,10 +130,9 @@
     void tracker::drawContours(cv::Mat& dst) {
 
       dst = colorImg.clone();
-
       for (size_t i(0); i<objects.size(); i++) {
-        std::vector<cv::Point2f> objCorner(4);
 
+        std::vector<cv::Point2f> objCorner(4);
         objCorner[0] = cv::Point2f(0,0);
         objCorner[1] = cv::Point2f((float) objects[i].cols, 0);
         objCorner[2] = cv::Point2f((float) objects[i].cols, (float) objects[i].rows);
@@ -146,9 +145,6 @@
         std::cout << objCorner[1] << std::endl;
         std::cout << frameCorners[1] << std::endl;
 
-
-        //cv::rectangle(dst, frameCorners[0], frameCorners[3], cv::Scalar(0,0,255));
-
         cv::line(dst, frameCorners[0], frameCorners[1], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
         cv::line(dst, frameCorners[1], frameCorners[2], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
         cv::line(dst, frameCorners[2], frameCorners[3], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
@@ -157,7 +153,6 @@
         cv::imshow("test", dst);
         cv::waitKey();
       }
-
     }
 
 

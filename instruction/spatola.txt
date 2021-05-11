@@ -1,6 +1,0 @@
-max width:	14.0mm
-min width:	10.4mm
-spike length:	10.0mm
-spike distance:	02.0mm
-depth:		40.0mm
-handle length:	13.5cm (135.0mm)

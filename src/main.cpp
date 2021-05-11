@@ -76,12 +76,12 @@ int main(int argc, char const *argv[]) {
         track->addSource(frame);
         track->addObj(objects);
         // detecting object given in image objects
-        vector<KeyPoint> k;
-        vector<vector<KeyPoint>> v;
-        Mat m;
-        vector<Mat> d;
-        track->detectSource(k,m);
-        track->detectAllObjects(v,d);
+        vector<KeyPoint> frameKeypoints;
+        Mat frameDescriptors;
+        vector<vector<KeyPoint>> objectsKeypoints;
+        vector<Mat> objectsDescriptors;
+        track->detectSource(frameKeypoints,frameDescriptors);
+        track->detectAllObjects(objectsKeypoints,objectsDescriptors);
         track->matchAllObjects();
       }
     }

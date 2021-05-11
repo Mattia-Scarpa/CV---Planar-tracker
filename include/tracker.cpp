@@ -13,6 +13,7 @@
   // fucntions
 
   void tracker::addSource(cv::Mat src) {
+    colorImg = src.clone();
     cv::cvtColor(src, src, cv::COLOR_BGR2GRAY);
     sourceImg = src.clone();
   }
@@ -99,7 +100,7 @@
       srcPts.push_back(srcTemp);
       // calculating the homography and getting the mask for inliers
       std::vector<char> inliersTemp(objTemp.size(), 0);
-      cv::Mat homography = findHomography(srcTemp, objTemp, cv::RANSAC, 3, inliersTemp);
+      cv::Mat homography = findHomography(objTemp, srcTemp, cv::RANSAC, 3, inliersTemp);
       H.push_back(homography);
       inliers.push_back(inliersTemp);
     }
@@ -110,7 +111,7 @@
       std::cout << "keypointsSource: " << keypointsSrc.size() << std::endl;
       std::cout << "keypointsObject: " << keypointsObjs[i].size() << std::endl;
       std::cout << "MatchesSize: " << matches[i].size() << std::endl;
-      drawMatches(objects[i], keypointsObjs[i], sourceImg, keypointsSrc, matches[i], matchedImg, cv::Scalar(0, 255, 0), cv::Scalar::all(-1), inliers[i]);
+      drawMatches(objects[i], keypointsObjs[i], sourceImg, keypointsSrc, matches[i], matchedImg, cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255), cv::Scalar::all(-1), inliers[i]);
       wName += i;
       imshow(wName, matchedImg);
       cv::waitKey();
@@ -124,3 +125,61 @@
       keypointsObjs.push_back(kPts);
       descriptorsObjs.push_back(descriptors);
     }
+
+
+    void tracker::drawContours(cv::Mat& dst) {
+
+      dst = colorImg.clone();
+
+      for (size_t i(0); i<objects.size(); i++) {
+        std::vector<cv::Point2f> objCorner(4);
+
+        objCorner[0] = cv::Point2f(0,0);
+        objCorner[1] = cv::Point2f((float) objects[i].cols, 0);
+        objCorner[2] = cv::Point2f((float) objects[i].cols, (float) objects[i].rows);
+        objCorner[3] = cv::Point2f(0, (float) objects[i].rows);
+
+        std::vector<cv::Point2f> frameCorners(4);
+        std::cout << H[i] << std::endl;
+        cv::perspectiveTransform(objCorner, frameCorners, H[i]);
+
+        std::cout << objCorner[1] << std::endl;
+        std::cout << frameCorners[1] << std::endl;
+
+
+        //cv::rectangle(dst, frameCorners[0], frameCorners[3], cv::Scalar(0,0,255));
+
+        cv::line(dst, frameCorners[0], frameCorners[1], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
+        cv::line(dst, frameCorners[1], frameCorners[2], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
+        cv::line(dst, frameCorners[2], frameCorners[3], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
+        cv::line(dst, frameCorners[3], frameCorners[0], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
+
+        cv::imshow("test", dst);
+        cv::waitKey();
+      }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //--------------------------------------------

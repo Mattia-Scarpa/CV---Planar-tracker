@@ -83,6 +83,9 @@ int main(int argc, char const *argv[]) {
         track->detectSource(frameKeypoints,frameDescriptors);
         track->detectAllObjects(objectsKeypoints,objectsDescriptors);
         track->matchAllObjects();
+        Mat contours;
+        track->drawContours(contours);
+
       }
     }
   }

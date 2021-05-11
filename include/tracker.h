@@ -36,6 +36,8 @@ public:
 
   void detectObject(cv::Mat& Obj, std::vector<cv::KeyPoint>& kPts, cv::Mat& descriptors);
 
+  void drawContours(cv::Mat& dst);
+
 
 
 private:
@@ -46,6 +48,7 @@ private:
   cv::Ptr<cv::BFMatcher> matcher;
 
   cv::Mat sourceImg;
+  cv::Mat colorImg;
   std::vector<cv::KeyPoint> keypointsSrc;
   cv::Mat descriptorsSrc;
 

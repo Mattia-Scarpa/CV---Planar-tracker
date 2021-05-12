@@ -10,8 +10,8 @@
 
 //constructors
 
-  tracker::tracker(int maxFreatures, int minMatchCount) {
-    MAX_FEATURES = maxFreatures;
+  tracker::tracker(int maxFeatures, int minMatchCount) {
+    MAX_FEATURES = maxFeatures;
     MIN_MATCH_COUNT = minMatchCount;
     sift = cv::SIFT::create();
     matcher = cv::BFMatcher::create();
@@ -66,6 +66,13 @@
     }
   }
 
+  void tracker::detectObject(cv::Mat& obj, std::vector<cv::KeyPoint>& kPts, cv::Mat& descriptors) {
+    sift -> detectAndCompute(obj, cv::Mat(), kPts, descriptors);
+    objects.push_back(obj);
+    keypointsObjs.push_back(kPts);
+    descriptorsObjs.push_back(descriptors);
+  }
+
   void tracker::matchAllObjects() {
 
     const float ratio_thresh = .8f;
@@ -104,35 +111,43 @@
         srcTemp.push_back(keypointsSrc[matches[i][j].trainIdx].pt);
         objTemp.push_back(keypointsObjs[i][matches[i][j].queryIdx].pt);
       }
-      objPts.push_back(objTemp);
-      srcPts.push_back(srcTemp);
       // calculating the homography and getting the mask for inliers
       std::vector<char> inliersTemp(objTemp.size(), 0);
-      cv::Mat homography = findHomography(objTemp, srcTemp, cv::RANSAC, 3, inliersTemp);
-      H.push_back(homography);
+      cv::Mat homography = findHomography(objTemp, srcTemp, inliersTemp, cv::RANSAC, 3);
+
+      std::cout << "Total features matched: " << srcTemp.size() << std::endl;
+      // discarding outliers
+      for (int i = 0; i < inliersTemp.size(); i++) {
+
+
+        if((int) inliersTemp[i] == 0) {
+          objTemp.erase(objTemp.begin()+i);
+          srcTemp.erase(srcTemp.begin()+i);
+        }
+      }
+
+      std::cout << "Total features without outliers matched: " << srcTemp.size() << std::endl;
+
+
       inliers.push_back(inliersTemp);
+
+      objPts.push_back(objTemp);
+      srcPts.push_back(srcTemp);
+
+      H.push_back(homography);
     }
     // get the keypoints from the good matches
-    std::string wName = "match ";
     cv::Mat matchedImg;
     for(size_t i(0); i<objects.size(); i++) {
       std::cout << "keypointsSource: " << keypointsSrc.size() << std::endl;
       std::cout << "keypointsObject: " << keypointsObjs[i].size() << std::endl;
       std::cout << "MatchesSize: " << matches[i].size() << std::endl;
       drawMatches(objects[i], keypointsObjs[i], sourceImg, keypointsSrc, matches[i], matchedImg, cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255), cv::Scalar::all(-1), inliers[i]);
-      wName += i;
-      imshow(wName, matchedImg);
+      imshow("match", matchedImg);
       cv::waitKey();
     }
   }
 
-
-  void tracker::detectObject(cv::Mat& obj, std::vector<cv::KeyPoint>& kPts, cv::Mat& descriptors) {
-      sift -> detectAndCompute(obj, cv::Mat(), kPts, descriptors);
-      objects.push_back(obj);
-      keypointsObjs.push_back(kPts);
-      descriptorsObjs.push_back(descriptors);
-    }
 
 
     void tracker::drawContours(cv::Mat& dst) {
@@ -147,11 +162,8 @@
         objCorner[3] = cv::Point2f(0, (float) objects[i].rows);
 
         std::vector<cv::Point2f> frameCorners(4);
-        std::cout << H[i] << std::endl;
         cv::perspectiveTransform(objCorner, frameCorners, H[i]);
 
-        std::cout << objCorner[1] << std::endl;
-        std::cout << frameCorners[1] << std::endl;
 
         cv::line(dst, frameCorners[0], frameCorners[1], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
         cv::line(dst, frameCorners[1], frameCorners[2], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
@@ -162,6 +174,34 @@
         cv::waitKey();
       }
     }
+
+    void tracker::trackFlow(cv::Mat prevImg, cv::Mat nextImg, std::vector<std::vector<cv::Point2f>> prevPts, std::vector<std::vector<cv::Point2f>>& nextPts, std::vector<std::vector<uchar>>& status) {
+
+      if(prevPts.empty()) {
+        prevPts = objPts;
+      }
+
+      std::vector<cv::Point2f> nextTemp;
+      std::vector<uchar> statusTemp;
+      cv::Mat err;
+
+      for (size_t i = 0; i < prevPts.size(); i++) {
+        cv::calcOpticalFlowPyrLK(prevImg, nextImg, prevPts[i], nextTemp, statusTemp, err);
+
+        std::cout << "Points tracked: " << prevPts[i].size() << " -> " << nextTemp.size() << '\n';
+
+        /*for (size_t j = 0; j < nextTemp.size(); j++) {
+          if ((int) statusTemp[j]==0) {
+            nextTemp.erase(nextTemp.begin()+i);
+          }
+        }*/
+        std::cout << "Total points preserved for object " << i << ": " << nextTemp.size() << '\n';
+        nextPts.push_back(nextTemp);
+      }
+    }
+
+
+
 
 
 

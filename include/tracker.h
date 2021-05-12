@@ -26,9 +26,15 @@ public:
   void matchAllObjects();
 
 
+  //std::vector<std::vector<cv::Point2f>> getObjectsPoints();
+
+
   void detectObject(cv::Mat& Obj, std::vector<cv::KeyPoint>& kPts, cv::Mat& descriptors);
 
   void drawContours(cv::Mat& dst);
+
+
+  void trackFlow(cv::Mat prevImg, cv::Mat nextImg, std::vector<std::vector<cv::Point2f>> prevPts, std::vector<std::vector<cv::Point2f>>& nextPts, std::vector<std::vector<uchar>>& status);
 
 
 

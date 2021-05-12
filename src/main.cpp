@@ -69,17 +69,23 @@ int main(int argc, char const *argv[]) {
   cv::VideoCapture cap(videosPath[0]);
   bool detected = true; // chek if objects has been detected from the first frame
   tracker* track = new tracker(MAX_FEATURES, MIN_MATCH_COUNT);
+  char k;
 
   if(cap.isOpened()) { // check if we succeeded
+
+    Mat prevFrame;
+    vector<vector<Point2f>> prevPts, nextPts;
+    vector<vector<uchar>> status;
     for(;;) {
       Mat frame;
       cap >> frame;
       if (!frame.empty()) {
         imshow("win", frame);
       }
-      waitKey(1);
+      k = waitKey(1);
 
-      //cout << "I am doing something" << endl;
+
+
       if (detected) {
         detected = false;
         track->addSource(frame);
@@ -92,10 +98,39 @@ int main(int argc, char const *argv[]) {
         track->detectSource(frameKeypoints,frameDescriptors);
         track->detectAllObjects(objectsKeypoints,objectsDescriptors);
         track->matchAllObjects();
+
         Mat contours;
         track->drawContours(contours);
-
       }
+      else {
+        status.clear();
+        //std::vector<cv::Point2f> prevPts, std::vector<cv::Point2f>& nextPts, std::vector<uchar>& status
+        track->trackFlow(prevFrame, frame, prevPts, nextPts, status);
+
+        //-------------------------------------------------------------
+        vector<KeyPoint> kpts;
+        for (size_t k = 0; k < nextPts.size(); k++) {
+          for (int i = 0; i<nextPts[1].size(); i++){
+            KeyPoint kpt = KeyPoint(nextPts[1][i], (float) 3);
+            cout << "KEPOINT: " << nextPts[1][i] << endl;
+            kpts.push_back(kpt);
+          }
+        }
+
+         Mat test;
+        drawKeypoints(frame, kpts, test);
+        imshow("testdisperato", test);
+        waitKey();
+        prevPts = nextPts;
+        nextPts.clear();
+      }
+
+      prevFrame = frame.clone();
+
+      if(k!=-1) {
+        break;
+      }
+
     }
   }
   else {

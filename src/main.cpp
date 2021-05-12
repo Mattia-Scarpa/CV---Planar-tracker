@@ -1,7 +1,16 @@
-#include <tracker.h>
+#include <iostream>
 
 using namespace std;
+
+#include <opencv2/core.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/calib3d.hpp>
+#include <opencv2/xfeatures2d.hpp>
+
 using namespace cv;
+
+#include <tracker.h>
 
 
 int MAX_FEATURES = 1000;

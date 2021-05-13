@@ -105,6 +105,4 @@ include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2
 include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/video/background_segm.hpp
 include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/video/tracking.hpp
 include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/videoio.hpp
-include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/xfeatures2d.hpp
-include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/xfeatures2d/nonfree.hpp
 

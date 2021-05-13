@@ -105,6 +105,4 @@ CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2
 CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/video/background_segm.hpp
 CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/video/tracking.hpp
 CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/videoio.hpp
-CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/xfeatures2d.hpp
-CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/xfeatures2d/nonfree.hpp
 

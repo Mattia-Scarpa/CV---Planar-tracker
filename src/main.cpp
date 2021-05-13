@@ -6,7 +6,7 @@ using namespace std;
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/calib3d.hpp>
-#include <opencv2/xfeatures2d.hpp>
+#include <opencv2/features2d.hpp>
 
 using namespace cv;
 
@@ -79,8 +79,9 @@ int main(int argc, char const *argv[]) {
     for(;;) {
       Mat frame;
       cap >> frame;
-      if (!frame.empty()) {
-        imshow("win", frame);
+      if (frame.empty()) {
+        //imshow("win", frame);
+        break;
       }
       k = waitKey(1);
 
@@ -119,7 +120,7 @@ int main(int argc, char const *argv[]) {
          Mat test;
         drawKeypoints(frame, kpts, test);
         imshow("testdisperato", test);
-        waitKey();
+        waitKey(1);
         prevPts = nextPts;
         nextPts.clear();
       }

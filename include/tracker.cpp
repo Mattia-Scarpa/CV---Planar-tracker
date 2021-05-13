@@ -149,7 +149,6 @@
   }
 
 
-
     void tracker::drawContours(cv::Mat& dst) {
 
       dst = colorImg.clone();

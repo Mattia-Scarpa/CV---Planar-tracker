@@ -185,7 +185,7 @@
       for (size_t i = 0; i < prevPts.size(); i++) {
         cv::calcOpticalFlowPyrLK(prevImg, nextImg, prevPts[i], nextTemp, statusTemp, err);
 
-        std::cout << "Points tracked: " << prevPts[i].size() << " -> " << nextTemp.size() << '\n';
+        std::cout << "Points tracked -> " << nextTemp.size() << '\n';
 
         for (size_t j = 0; j < nextTemp.size(); j++) {
           if (((int) statusTemp[j])==0) {

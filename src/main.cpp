@@ -110,9 +110,8 @@ int main(int argc, char const *argv[]) {
         //-------------------------------------------------------------
         vector<KeyPoint> kpts;
         for (size_t k = 0; k < nextPts.size(); k++) {
-          for (int i = 0; i<nextPts[1].size(); i++){
-            KeyPoint kpt = KeyPoint(nextPts[1][i], (float) 3);
-            cout << "KEPOINT: " << nextPts[1][i] << endl;
+          for (int i = 0; i<nextPts[k].size(); i++){
+            KeyPoint kpt = KeyPoint(nextPts[k][i], (float) 3);
             kpts.push_back(kpt);
           }
         }

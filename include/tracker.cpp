@@ -164,21 +164,19 @@
         std::vector<cv::Point2f> frameCorners(4);
         cv::perspectiveTransform(objCorner, frameCorners, H[i]);
 
-
         cv::line(dst, frameCorners[0], frameCorners[1], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
         cv::line(dst, frameCorners[1], frameCorners[2], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
         cv::line(dst, frameCorners[2], frameCorners[3], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
         cv::line(dst, frameCorners[3], frameCorners[0], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
-
-        cv::imshow("test", dst);
-        cv::waitKey();
       }
+      cv::imshow("test", dst);
+      cv::waitKey();
     }
 
     void tracker::trackFlow(cv::Mat prevImg, cv::Mat nextImg, std::vector<std::vector<cv::Point2f>> prevPts, std::vector<std::vector<cv::Point2f>>& nextPts, std::vector<std::vector<uchar>>& status) {
 
       if(prevPts.empty()) {
-        prevPts = objPts;
+        prevPts = srcPts;
       }
 
       std::vector<cv::Point2f> nextTemp;
@@ -190,12 +188,12 @@
 
         std::cout << "Points tracked: " << prevPts[i].size() << " -> " << nextTemp.size() << '\n';
 
-        /*for (size_t j = 0; j < nextTemp.size(); j++) {
-          if ((int) statusTemp[j]==0) {
+        for (size_t j = 0; j < nextTemp.size(); j++) {
+          if (((int) statusTemp[j])==0) {
             nextTemp.erase(nextTemp.begin()+i);
           }
-        }*/
-        std::cout << "Total points preserved for object " << i << ": " << nextTemp.size() << '\n';
+        }
+        std::cout << "Total points preserved for object " << i << ": " << cv::countNonZero(statusTemp) << '\n';//nextTemp.size()
         nextPts.push_back(nextTemp);
       }
     }

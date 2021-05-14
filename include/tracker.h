@@ -5,7 +5,7 @@ public:
 
   // constructors
 
-  tracker(int maxFreatures, int minMatchCount);
+  tracker(int maxFreatures);
 
 
   // public fucntions
@@ -26,22 +26,25 @@ public:
   void matchAllObjects();
 
 
-  //std::vector<std::vector<cv::Point2f>> getObjectsPoints();
-
-
   void detectObject(cv::Mat& Obj, std::vector<cv::KeyPoint>& kPts, cv::Mat& descriptors);
 
   void drawContours(cv::Mat& dst);
 
+  void drawContours(cv::Mat& dst, std::vector<std::vector<cv::Point2f>> cornerPoints);
 
-  void trackFlow(cv::Mat prevImg, cv::Mat nextImg, std::vector<std::vector<cv::Point2f>> prevPts, std::vector<std::vector<cv::Point2f>>& nextPts, std::vector<std::vector<uchar>>& status);
+
+  void trackFlow(cv::Mat prevImg, cv::Mat nextImg, std::vector<std::vector<cv::Point2f>>& prevPts, std::vector<std::vector<cv::Point2f>>& nextPts, std::vector<std::vector<uchar>>& status);
+
+  void trackConotours(std::vector<std::vector<cv::Point2f>> prevPts, std::vector<std::vector<cv::Point2f>> nextPts, std::vector<std::vector<cv::Point2f>> prevCorners, std::vector<std::vector<cv::Point2f>>& newCorners);
 
 
+  std::vector<cv::Scalar> colors;
+  std::vector<cv::Mat> H;
+  std::vector<std::vector<cv::Point2f>> frameCorners;
 
 private:
 
   int MAX_FEATURES;
-  int MIN_MATCH_COUNT;
   cv::Ptr<cv::SIFT> sift;
   cv::Ptr<cv::BFMatcher> matcher;
 
@@ -58,7 +61,8 @@ private:
 
   std::vector<std::vector<cv::Point2f>> objPts;
   std::vector<std::vector<cv::Point2f>> srcPts;
-  std::vector<cv::Mat> H;
   std::vector<std::vector<char>> inliers;
+
+
 
 };

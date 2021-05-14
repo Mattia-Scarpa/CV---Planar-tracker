@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 
 #include <opencv2/core.hpp>
 #include <opencv2/opencv.hpp>
@@ -8,11 +9,20 @@
 
 #include <tracker.h>
 
+// additional utilities functions
+
+  void createColors(std::vector<cv::Scalar>& color, int numColors = 1) {
+    std::srand(time(0));
+    for (size_t i = 0; i < numColors; i++) {
+      color.push_back(cv::Scalar((double)std::rand() / RAND_MAX * 255, (double)std::rand() / RAND_MAX * 255, (double)std::rand() / RAND_MAX * 255));
+    }
+  }
+
+
 //constructors
 
-  tracker::tracker(int maxFeatures, int minMatchCount) {
+  tracker::tracker(int maxFeatures) {
     MAX_FEATURES = maxFeatures;
-    MIN_MATCH_COUNT = minMatchCount;
     sift = cv::SIFT::create();
     matcher = cv::BFMatcher::create();
   }
@@ -29,6 +39,7 @@
   void tracker::addObj(cv::Mat srcObj) {
     cv::cvtColor(srcObj, srcObj, cv::COLOR_BGR2GRAY);
     objects.push_back(srcObj);
+    createColors(colors);
   }
 
   void tracker::addObj(std::vector<cv::Mat> srcObj) {
@@ -37,6 +48,7 @@
       cv::cvtColor(srcObj[i], temp, cv::COLOR_BGR2GRAY);
       objects.push_back(temp);
     }
+    createColors(colors, srcObj.size());
   }
 
 
@@ -75,7 +87,7 @@
 
   void tracker::matchAllObjects() {
 
-    const float ratio_thresh = .8f;
+    const float ratio_thresh = .5f;
     descriptorsSrc.convertTo(descriptorsSrc, CV_32F);
     std::vector<std::vector<cv::DMatch>> matchesTemp;
     std::vector<cv::DMatch> goodTemp;
@@ -85,7 +97,7 @@
       matchesTemp.clear();
 
       descriptorsObjs[i].convertTo(descriptorsObjs[i], CV_32F);
-      matcher->knnMatch(descriptorsObjs[i], descriptorsSrc, matchesTemp, 2);
+      matcher->knnMatch(descriptorsObjs[i], descriptorsSrc, matchesTemp, 3);
 
       // applying the Lowe's ratio test to find good mathes
       for(size_t j(0); j<matchesTemp.size(); j++) {
@@ -113,13 +125,11 @@
       }
       // calculating the homography and getting the mask for inliers
       std::vector<char> inliersTemp(objTemp.size(), 0);
-      cv::Mat homography = findHomography(objTemp, srcTemp, inliersTemp, cv::RANSAC, 3);
+      cv::Mat homography = findHomography(objTemp, srcTemp, inliersTemp, cv::RANSAC, 5);
 
       std::cout << "Total features matched: " << srcTemp.size() << std::endl;
       // discarding outliers
       for (int i = 0; i < inliersTemp.size(); i++) {
-
-
         if((int) inliersTemp[i] == 0) {
           objTemp.erase(objTemp.begin()+i);
           srcTemp.erase(srcTemp.begin()+i);
@@ -142,60 +152,95 @@
       std::cout << "keypointsSource: " << keypointsSrc.size() << std::endl;
       std::cout << "keypointsObject: " << keypointsObjs[i].size() << std::endl;
       std::cout << "MatchesSize: " << matches[i].size() << std::endl;
-      drawMatches(objects[i], keypointsObjs[i], sourceImg, keypointsSrc, matches[i], matchedImg, cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255), cv::Scalar::all(-1), inliers[i]);
+      drawMatches(objects[i], keypointsObjs[i], sourceImg, keypointsSrc, matches[i], matchedImg, colors[i], cv::Scalar::all(-1), inliers[i]);
       imshow("match", matchedImg);
       cv::waitKey();
     }
   }
 
 
-    void tracker::drawContours(cv::Mat& dst) {
+  void tracker::drawContours(cv::Mat& dst) {
 
-      dst = colorImg.clone();
-      for (size_t i(0); i<objects.size(); i++) {
+    dst = colorImg.clone();
+    for (size_t i(0); i<objects.size(); i++) {
 
-        std::vector<cv::Point2f> objCorner(4);
-        objCorner[0] = cv::Point2f(0,0);
-        objCorner[1] = cv::Point2f((float) objects[i].cols, 0);
-        objCorner[2] = cv::Point2f((float) objects[i].cols, (float) objects[i].rows);
-        objCorner[3] = cv::Point2f(0, (float) objects[i].rows);
+      std::vector<cv::Point2f> objCorner(4);
 
-        std::vector<cv::Point2f> frameCorners(4);
-        cv::perspectiveTransform(objCorner, frameCorners, H[i]);
+      objCorner[0] = cv::Point2f(0,0);
+      objCorner[1] = cv::Point2f((float) objects[i].cols, 0);
+      objCorner[2] = cv::Point2f((float) objects[i].cols, (float) objects[i].rows);
+      objCorner[3] = cv::Point2f(0, (float) objects[i].rows);
 
-        cv::line(dst, frameCorners[0], frameCorners[1], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
-        cv::line(dst, frameCorners[1], frameCorners[2], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
-        cv::line(dst, frameCorners[2], frameCorners[3], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
-        cv::line(dst, frameCorners[3], frameCorners[0], cv::Scalar((i%2+1)*255, (i%3)*255, (i/2)*255),2);
-      }
-      cv::imshow("test", dst);
-      cv::waitKey();
+      cv::cornerSubPix(objects[i], objCorner, cv::Size(45,45), cv::Size(-1,-1), cv::TermCriteria( cv::TermCriteria::EPS+cv::TermCriteria::COUNT, 10, 0.001));
+
+      std::vector<cv::Point2f> frameCornersTemp(4);
+      cv::perspectiveTransform(objCorner, frameCornersTemp, H[i]);
+      cv::cornerSubPix(sourceImg, frameCornersTemp, cv::Size(15,15), cv::Size(-1,-1), cv::TermCriteria( cv::TermCriteria::EPS+cv::TermCriteria::COUNT, 100, 0.0001));
+
+      cv::line(dst, frameCornersTemp[0], frameCornersTemp[1], colors[i],2);
+      cv::line(dst, frameCornersTemp[1], frameCornersTemp[2], colors[i],2);
+      cv::line(dst, frameCornersTemp[2], frameCornersTemp[3], colors[i],2);
+      cv::line(dst, frameCornersTemp[3], frameCornersTemp[0], colors[i],2);
+
+      frameCorners.push_back(frameCornersTemp);
+    }
+  }
+
+  void tracker::drawContours(cv::Mat& dst, std::vector<std::vector<cv::Point2f>> cornerPoints) {
+
+    for (size_t i = 0; i < cornerPoints.size(); i++) {
+      //cv::cornerSubPix(sourceImg, cornerPoints[i], cv::Size(10,10), cv::Size(-1,-1), cv::TermCriteria( cv::TermCriteria::EPS+cv::TermCriteria::COUNT, 100000, 0.0001));
+
+      cv::line(dst, cornerPoints[i][0], cornerPoints[i][1], colors[i],2);
+      cv::line(dst, cornerPoints[i][1], cornerPoints[i][2], colors[i],2);
+      cv::line(dst, cornerPoints[i][2], cornerPoints[i][3], colors[i],2);
+      cv::line(dst, cornerPoints[i][3], cornerPoints[i][0], colors[i],2);
+    }
+  }
+
+  void tracker::trackFlow(cv::Mat prevImg, cv::Mat nextImg, std::vector<std::vector<cv::Point2f>>& prevPts, std::vector<std::vector<cv::Point2f>>& nextPts, std::vector<std::vector<uchar>>& status) {
+
+    if(prevPts.empty()) {
+      prevPts = srcPts;
     }
 
-    void tracker::trackFlow(cv::Mat prevImg, cv::Mat nextImg, std::vector<std::vector<cv::Point2f>> prevPts, std::vector<std::vector<cv::Point2f>>& nextPts, std::vector<std::vector<uchar>>& status) {
+    std::vector<cv::Point2f> nextTemp;
+    std::vector<uchar> statusTemp;
+    cv::Mat err;
 
-      if(prevPts.empty()) {
-        prevPts = srcPts;
-      }
+    for (size_t i = 0; i < prevPts.size(); i++) {
+      cv::calcOpticalFlowPyrLK(prevImg, nextImg, prevPts[i], nextTemp, statusTemp, err);
 
-      std::vector<cv::Point2f> nextTemp;
-      std::vector<uchar> statusTemp;
-      cv::Mat err;
+      std::cout << "Total tracked points: " << prevPts[i].size() << " -> " << nextTemp.size() << std::endl;
 
-      for (size_t i = 0; i < prevPts.size(); i++) {
-        cv::calcOpticalFlowPyrLK(prevImg, nextImg, prevPts[i], nextTemp, statusTemp, err);
-
-        std::cout << "Points tracked -> " << nextTemp.size() << '\n';
-
-        for (size_t j = 0; j < nextTemp.size(); j++) {
-          if (((int) statusTemp[j])==0) {
-            nextTemp.erase(nextTemp.begin()+i);
-          }
+      for (size_t j = 0; j < nextTemp.size(); j++) {
+        if (((int) statusTemp[j])==0) {
+          prevPts[i].erase(nextTemp.begin()+j);
+          nextTemp.erase(nextTemp.begin()+j);
         }
-        std::cout << "Total points preserved for object " << i << ": " << cv::countNonZero(statusTemp) << '\n';//nextTemp.size()
-        nextPts.push_back(nextTemp);
       }
+      nextPts.push_back(nextTemp);
     }
+  }
+
+  void tracker::trackConotours(std::vector<std::vector<cv::Point2f>> prevPts, std::vector<std::vector<cv::Point2f>> nextPts, std::vector<std::vector<cv::Point2f>> prevCorners, std::vector<std::vector<cv::Point2f>>& newCorners) {
+
+    newCorners.clear();
+
+    if(prevCorners.empty()) {
+      prevCorners = frameCorners;
+    }
+
+    std::vector<cv::Point2f> nextPtsTemp;
+
+    for (size_t i(0); i < nextPts.size(); i++) {
+      cv::Mat homography = cv::findHomography(prevPts[i], nextPts[i], cv::RANSAC, .5);
+      cv::perspectiveTransform(prevCorners[i], nextPtsTemp, homography);
+      newCorners.push_back(nextPtsTemp);
+      nextPtsTemp.clear();
+    }
+  }
+
 
 
 

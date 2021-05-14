@@ -14,7 +14,6 @@ using namespace cv;
 
 
 int MAX_FEATURES = 1000;
-int MIN_MATCH_COUNT = 10;
 
 
 
@@ -68,7 +67,7 @@ int main(int argc, char const *argv[]) {
 
   cv::VideoCapture cap(videosPath[0]);
   bool detected = true; // chek if objects has been detected from the first frame
-  tracker* track = new tracker(MAX_FEATURES, MIN_MATCH_COUNT);
+  tracker* track = new tracker(MAX_FEATURES);
   char k;
 
   if(cap.isOpened()) { // check if we succeeded
@@ -76,6 +75,9 @@ int main(int argc, char const *argv[]) {
     Mat prevFrame;
     vector<vector<Point2f>> prevPts, nextPts;
     vector<vector<uchar>> status;
+
+    vector<vector<Point2f>> oldCorners, newCorners;
+
     for(;;) {
       Mat frame;
       cap >> frame;
@@ -102,28 +104,39 @@ int main(int argc, char const *argv[]) {
 
         Mat contours;
         track->drawContours(contours);
+        cv::imshow("test", contours);
       }
       else {
         status.clear();
-        //std::vector<cv::Point2f> prevPts, std::vector<cv::Point2f>& nextPts, std::vector<uchar>& status
         track->trackFlow(prevFrame, frame, prevPts, nextPts, status);
 
+
         //-------------------------------------------------------------
+
+        Mat trackedImg = frame.clone();
+
+
+        track->trackConotours(prevPts, nextPts, oldCorners, newCorners);
+        track->drawContours(trackedImg, newCorners);
+        oldCorners = newCorners;
+
         vector<KeyPoint> kpts;
+
         for (size_t k = 0; k < nextPts.size(); k++) {
           for (int i = 0; i<nextPts[k].size(); i++){
             KeyPoint kpt = KeyPoint(nextPts[k][i], (float) 3);
             kpts.push_back(kpt);
           }
+          drawKeypoints(trackedImg, kpts, trackedImg, track->colors[k]);
+          kpts.clear();
         }
 
-         Mat test;
-        drawKeypoints(frame, kpts, test);
-        imshow("testdisperato", test);
-        waitKey(1);
+        imshow("trackedObjects", trackedImg);
         prevPts = nextPts;
         nextPts.clear();
       }
+
+      //---------------------------------------------------------------
 
       prevFrame = frame.clone();
 

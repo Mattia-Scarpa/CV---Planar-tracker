@@ -87,7 +87,7 @@
 
   void tracker::matchAllObjects() {
 
-    const float ratio_thresh = .5f;
+    const float ratio_thresh = .45f;
     descriptorsSrc.convertTo(descriptorsSrc, CV_32F);
     std::vector<std::vector<cv::DMatch>> matchesTemp;
     std::vector<cv::DMatch> goodTemp;
@@ -99,7 +99,7 @@
       descriptorsObjs[i].convertTo(descriptorsObjs[i], CV_32F);
       matcher->knnMatch(descriptorsObjs[i], descriptorsSrc, matchesTemp, 3);
 
-      // applying the Lowe's ratio test to find good mathes
+      // applying the Lowe's ratio test to find good matches
       for(size_t j(0); j<matchesTemp.size(); j++) {
 
         if(matchesTemp[j][0].distance < ratio_thresh*matchesTemp[j][1].distance) {
@@ -125,7 +125,7 @@
       }
       // calculating the homography and getting the mask for inliers
       std::vector<char> inliersTemp(objTemp.size(), 0);
-      cv::Mat homography = findHomography(objTemp, srcTemp, inliersTemp, cv::RANSAC, 5);
+      cv::Mat homography = findHomography(objTemp, srcTemp, inliersTemp, cv::RANSAC, 3);
 
       std::cout << "Total features matched: " << srcTemp.size() << std::endl;
       // discarding outliers
@@ -175,7 +175,7 @@
 
       std::vector<cv::Point2f> frameCornersTemp(4);
       cv::perspectiveTransform(objCorner, frameCornersTemp, H[i]);
-      cv::cornerSubPix(sourceImg, frameCornersTemp, cv::Size(15,15), cv::Size(-1,-1), cv::TermCriteria( cv::TermCriteria::EPS+cv::TermCriteria::COUNT, 100, 0.0001));
+      cv::cornerSubPix(sourceImg, frameCornersTemp, cv::Size(15,15), cv::Size(-1,-1), cv::TermCriteria( cv::TermCriteria::EPS+cv::TermCriteria::COUNT, 10, 0.001));
 
       cv::line(dst, frameCornersTemp[0], frameCornersTemp[1], colors[i],2);
       cv::line(dst, frameCornersTemp[1], frameCornersTemp[2], colors[i],2);
@@ -186,17 +186,18 @@
     }
   }
 
-  void tracker::drawContours(cv::Mat& dst, std::vector<std::vector<cv::Point2f>> cornerPoints) {
+  void tracker::drawContours(cv::Mat& srcdst, std::vector<std::vector<cv::Point2f>> cornerPoints) {
 
     for (size_t i = 0; i < cornerPoints.size(); i++) {
-      //cv::cornerSubPix(sourceImg, cornerPoints[i], cv::Size(10,10), cv::Size(-1,-1), cv::TermCriteria( cv::TermCriteria::EPS+cv::TermCriteria::COUNT, 100000, 0.0001));
+      //cv::cornerSubPix(sourceImg, cornerPoints[i], cv::Size(50,50), cv::Size(-1,-1), cv::TermCriteria( cv::TermCriteria::EPS+cv::TermCriteria::COUNT, 100, 0.01));
 
-      cv::line(dst, cornerPoints[i][0], cornerPoints[i][1], colors[i],2);
-      cv::line(dst, cornerPoints[i][1], cornerPoints[i][2], colors[i],2);
-      cv::line(dst, cornerPoints[i][2], cornerPoints[i][3], colors[i],2);
-      cv::line(dst, cornerPoints[i][3], cornerPoints[i][0], colors[i],2);
+      cv::line(srcdst, cornerPoints[i][0], cornerPoints[i][1], colors[i],2);
+      cv::line(srcdst, cornerPoints[i][1], cornerPoints[i][2], colors[i],2);
+      cv::line(srcdst, cornerPoints[i][2], cornerPoints[i][3], colors[i],2);
+      cv::line(srcdst, cornerPoints[i][3], cornerPoints[i][0], colors[i],2);
     }
   }
+
 
   void tracker::trackFlow(cv::Mat prevImg, cv::Mat nextImg, std::vector<std::vector<cv::Point2f>>& prevPts, std::vector<std::vector<cv::Point2f>>& nextPts, std::vector<std::vector<uchar>>& status) {
 
@@ -211,7 +212,7 @@
     for (size_t i = 0; i < prevPts.size(); i++) {
       cv::calcOpticalFlowPyrLK(prevImg, nextImg, prevPts[i], nextTemp, statusTemp, err);
 
-      std::cout << "Total tracked points: " << prevPts[i].size() << " -> " << nextTemp.size() << std::endl;
+      //std::cout << "Total tracked points: " << prevPts[i].size() << " -> " << nextTemp.size() << std::endl;
 
       for (size_t j = 0; j < nextTemp.size(); j++) {
         if (((int) statusTemp[j])==0) {
@@ -234,7 +235,9 @@
     std::vector<cv::Point2f> nextPtsTemp;
 
     for (size_t i(0); i < nextPts.size(); i++) {
+
       cv::Mat homography = cv::findHomography(prevPts[i], nextPts[i], cv::RANSAC, .5);
+
       cv::perspectiveTransform(prevCorners[i], nextPtsTemp, homography);
       newCorners.push_back(nextPtsTemp);
       nextPtsTemp.clear();

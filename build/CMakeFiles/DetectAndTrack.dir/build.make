@@ -90,6 +90,7 @@ DetectAndTrack: /usr/local/lib/libopencv_cudabgsegm.so.4.5.2
 DetectAndTrack: /usr/local/lib/libopencv_cudafeatures2d.so.4.5.2
 DetectAndTrack: /usr/local/lib/libopencv_cudaobjdetect.so.4.5.2
 DetectAndTrack: /usr/local/lib/libopencv_cudastereo.so.4.5.2
+DetectAndTrack: /usr/local/lib/libopencv_cvv.so.4.5.2
 DetectAndTrack: /usr/local/lib/libopencv_dnn_objdetect.so.4.5.2
 DetectAndTrack: /usr/local/lib/libopencv_dnn_superres.so.4.5.2
 DetectAndTrack: /usr/local/lib/libopencv_dpm.so.4.5.2

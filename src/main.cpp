@@ -31,7 +31,7 @@ int main(int argc, char const *argv[]) {
   }
 
   if (imagesPath.size() < 1) {
-    cout << "No compatible images found in folder ../data/ \nAdd image in the specified folder then rerun the application (available format: .jpg, .png)" << endl;
+    cout << "No compatible images found in folder ../data/object/ \nAdd image in the specified folder then rerun the application (available format: .jpg, .png)" << endl;
     return 0;
   }
 
@@ -82,10 +82,9 @@ int main(int argc, char const *argv[]) {
       Mat frame;
       cap >> frame;
       if (frame.empty()) {
-        //imshow("win", frame);
         break;
       }
-      k = waitKey(1);
+      k = waitKey(15);
 
 
 
@@ -104,17 +103,15 @@ int main(int argc, char const *argv[]) {
 
         Mat contours;
         track->drawContours(contours);
-        cv::imshow("test", contours);
+
+        namedWindow("match", cv::WINDOW_NORMAL);
+        imshow("Detected Objects", contours);
       }
       else {
         status.clear();
         track->trackFlow(prevFrame, frame, prevPts, nextPts, status);
 
-
-        //-------------------------------------------------------------
-
         Mat trackedImg = frame.clone();
-
 
         track->trackConotours(prevPts, nextPts, oldCorners, newCorners);
         track->drawContours(trackedImg, newCorners);
@@ -131,12 +128,10 @@ int main(int argc, char const *argv[]) {
           kpts.clear();
         }
 
-        imshow("trackedObjects", trackedImg);
+        imshow("Tracking Objects", trackedImg);
         prevPts = nextPts;
         nextPts.clear();
       }
-
-      //---------------------------------------------------------------
 
       prevFrame = frame.clone();
 

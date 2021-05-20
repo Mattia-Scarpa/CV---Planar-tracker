@@ -16,6 +16,10 @@
     for (size_t i = 0; i < numColors; i++) {
       color.push_back(cv::Scalar((double)std::rand() / RAND_MAX * 255, (double)std::rand() / RAND_MAX * 255, (double)std::rand() / RAND_MAX * 255));
     }
+    color.push_back(cv::Scalar(0,255,0));
+    color.push_back(cv::Scalar(0,0,255));
+    color.push_back(cv::Scalar(0,255,255));
+    color.push_back(cv::Scalar(255,0,0));
   }
 
 
@@ -220,6 +224,7 @@
           nextTemp.erase(nextTemp.begin()+j);
         }
       }
+      std::cout << "Total tracked ->" << nextTemp.size() << '\n';
       nextPts.push_back(nextTemp);
     }
   }
@@ -243,31 +248,3 @@
       nextPtsTemp.clear();
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //--------------------------------------------

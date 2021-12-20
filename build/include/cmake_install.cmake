@@ -1,4 +1,4 @@
-# Install script for directory: /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include
+# Install script for directory: /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

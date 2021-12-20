@@ -3,7 +3,7 @@
 
 CMakeFiles/DetectAndTrack.dir/src/main.cpp.o
  ../include/tracker.h
- /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/src/main.cpp
+ /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/src/main.cpp
  /usr/local/include/opencv4/opencv2/calib3d.hpp
  /usr/local/include/opencv4/opencv2/core.hpp
  /usr/local/include/opencv4/opencv2/core/affine.hpp
@@ -87,6 +87,7 @@ CMakeFiles/DetectAndTrack.dir/src/main.cpp.o
  /usr/local/include/opencv4/opencv2/ml/ml.inl.hpp
  /usr/local/include/opencv4/opencv2/objdetect.hpp
  /usr/local/include/opencv4/opencv2/objdetect/detection_based_tracker.hpp
+ /usr/local/include/opencv4/opencv2/objdetect/face.hpp
  /usr/local/include/opencv4/opencv2/opencv.hpp
  /usr/local/include/opencv4/opencv2/opencv_modules.hpp
  /usr/local/include/opencv4/opencv2/photo.hpp

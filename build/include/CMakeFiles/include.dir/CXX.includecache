@@ -7,8 +7,10 @@
 #IncludeRegexTransform: 
 
 ../include/tracker.h
+opencv2/core.hpp
+-
 
-/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include/tracker.cpp
+/mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include/tracker.cpp
 iostream
 -
 cstdlib
@@ -146,6 +148,8 @@ Intrin.h
 arm_neon.h
 -
 arm_neon.h
+-
+riscv-vector.h
 -
 arm_neon.h
 -
@@ -569,6 +573,8 @@ algorithm
 -
 vector
 -
+unordered_map
+-
 
 /usr/local/include/opencv4/opencv2/flann/hierarchical_clustering_index.h
 algorithm
@@ -865,11 +871,17 @@ opencv2/core.hpp
 /usr/local/include/opencv4/opencv2/opencv2/core.hpp
 opencv2/objdetect/detection_based_tracker.hpp
 /usr/local/include/opencv4/opencv2/opencv2/objdetect/detection_based_tracker.hpp
+opencv2/objdetect/face.hpp
+/usr/local/include/opencv4/opencv2/opencv2/objdetect/face.hpp
 
 /usr/local/include/opencv4/opencv2/objdetect/detection_based_tracker.hpp
 opencv2/core.hpp
 -
 vector
+-
+
+/usr/local/include/opencv4/opencv2/objdetect/face.hpp
+opencv2/core.hpp
 -
 
 /usr/local/include/opencv4/opencv2/opencv.hpp

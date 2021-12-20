@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/local/include/opencv4 -I/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include 
+CXX_INCLUDES = -I/usr/local/include/opencv4 -I/mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include 
 

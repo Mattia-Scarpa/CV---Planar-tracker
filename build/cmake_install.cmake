@@ -1,4 +1,4 @@
-# Install script for directory: /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab
+# Install script for directory: /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include/cmake_install.cmake")
+  include("/mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include/cmake_install.cmake")
 
 endif()
 
@@ -51,5 +51,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

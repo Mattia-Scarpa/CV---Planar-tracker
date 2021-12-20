@@ -86,6 +86,7 @@ CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2
 CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/ml/ml.inl.hpp
 CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/objdetect.hpp
 CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/objdetect/detection_based_tracker.hpp
+CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/objdetect/face.hpp
 CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/opencv.hpp
 CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/opencv_modules.hpp
 CMakeFiles/DetectAndTrack.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/photo.hpp

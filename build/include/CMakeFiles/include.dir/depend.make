@@ -86,6 +86,7 @@ include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2
 include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/ml/ml.inl.hpp
 include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/objdetect.hpp
 include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/objdetect/detection_based_tracker.hpp
+include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/objdetect/face.hpp
 include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/opencv.hpp
 include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/opencv_modules.hpp
 include/CMakeFiles/include.dir/tracker.cpp.o: /usr/local/include/opencv4/opencv2/photo.hpp

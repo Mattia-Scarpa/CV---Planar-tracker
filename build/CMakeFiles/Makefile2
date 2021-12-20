@@ -44,10 +44,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab
+CMAKE_SOURCE_DIR = /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build
+CMAKE_BINARY_DIR = /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -94,14 +94,14 @@ include/clean: include/CMakeFiles/include.dir/clean
 CMakeFiles/DetectAndTrack.dir/all: include/CMakeFiles/include.dir/all
 	$(MAKE) -f CMakeFiles/DetectAndTrack.dir/build.make CMakeFiles/DetectAndTrack.dir/depend
 	$(MAKE) -f CMakeFiles/DetectAndTrack.dir/build.make CMakeFiles/DetectAndTrack.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles --progress-num=1,2 "Built target DetectAndTrack"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles --progress-num=1,2 "Built target DetectAndTrack"
 .PHONY : CMakeFiles/DetectAndTrack.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/DetectAndTrack.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/DetectAndTrack.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles 0
 .PHONY : CMakeFiles/DetectAndTrack.dir/rule
 
 # Convenience name for target.
@@ -121,14 +121,14 @@ CMakeFiles/DetectAndTrack.dir/clean:
 include/CMakeFiles/include.dir/all:
 	$(MAKE) -f include/CMakeFiles/include.dir/build.make include/CMakeFiles/include.dir/depend
 	$(MAKE) -f include/CMakeFiles/include.dir/build.make include/CMakeFiles/include.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles --progress-num=3,4 "Built target include"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles --progress-num=3,4 "Built target include"
 .PHONY : include/CMakeFiles/include.dir/all
 
 # Build rule for subdir invocation for target.
 include/CMakeFiles/include.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 include/CMakeFiles/include.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles 0
 .PHONY : include/CMakeFiles/include.dir/rule
 
 # Convenience name for target.

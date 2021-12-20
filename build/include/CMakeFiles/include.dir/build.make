@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab
+CMAKE_SOURCE_DIR = /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build
+CMAKE_BINARY_DIR = /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build
 
 # Include any dependencies generated for this target.
 include include/CMakeFiles/include.dir/depend.make
@@ -59,16 +59,16 @@ include include/CMakeFiles/include.dir/flags.make
 
 include/CMakeFiles/include.dir/tracker.cpp.o: include/CMakeFiles/include.dir/flags.make
 include/CMakeFiles/include.dir/tracker.cpp.o: ../include/tracker.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object include/CMakeFiles/include.dir/tracker.cpp.o"
-	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/include.dir/tracker.cpp.o -c /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include/tracker.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object include/CMakeFiles/include.dir/tracker.cpp.o"
+	cd /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/include.dir/tracker.cpp.o -c /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include/tracker.cpp
 
 include/CMakeFiles/include.dir/tracker.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/include.dir/tracker.cpp.i"
-	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include/tracker.cpp > CMakeFiles/include.dir/tracker.cpp.i
+	cd /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include/tracker.cpp > CMakeFiles/include.dir/tracker.cpp.i
 
 include/CMakeFiles/include.dir/tracker.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/include.dir/tracker.cpp.s"
-	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include/tracker.cpp -o CMakeFiles/include.dir/tracker.cpp.s
+	cd /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include/tracker.cpp -o CMakeFiles/include.dir/tracker.cpp.s
 
 # Object files for target include
 include_OBJECTS = \
@@ -80,9 +80,9 @@ include_EXTERNAL_OBJECTS =
 include/libinclude.a: include/CMakeFiles/include.dir/tracker.cpp.o
 include/libinclude.a: include/CMakeFiles/include.dir/build.make
 include/libinclude.a: include/CMakeFiles/include.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libinclude.a"
-	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && $(CMAKE_COMMAND) -P CMakeFiles/include.dir/cmake_clean_target.cmake
-	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/include.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libinclude.a"
+	cd /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && $(CMAKE_COMMAND) -P CMakeFiles/include.dir/cmake_clean_target.cmake
+	cd /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/include.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 include/CMakeFiles/include.dir/build: include/libinclude.a
@@ -90,10 +90,10 @@ include/CMakeFiles/include.dir/build: include/libinclude.a
 .PHONY : include/CMakeFiles/include.dir/build
 
 include/CMakeFiles/include.dir/clean:
-	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && $(CMAKE_COMMAND) -P CMakeFiles/include.dir/cmake_clean.cmake
+	cd /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include && $(CMAKE_COMMAND) -P CMakeFiles/include.dir/cmake_clean.cmake
 .PHONY : include/CMakeFiles/include.dir/clean
 
 include/CMakeFiles/include.dir/depend:
-	cd /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include /media/mattiascarpa/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include/CMakeFiles/include.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/include /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include /mnt/Archivio/Programming_Workspace/Computer_Vision_UniPD/TrackLab/build/include/CMakeFiles/include.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : include/CMakeFiles/include.dir/depend
 

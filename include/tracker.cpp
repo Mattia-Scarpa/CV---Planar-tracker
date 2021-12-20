@@ -16,10 +16,6 @@
     for (size_t i = 0; i < numColors; i++) {
       color.push_back(cv::Scalar((double)std::rand() / RAND_MAX * 255, (double)std::rand() / RAND_MAX * 255, (double)std::rand() / RAND_MAX * 255));
     }
-    color.push_back(cv::Scalar(0,255,0));
-    color.push_back(cv::Scalar(0,0,255));
-    color.push_back(cv::Scalar(0,255,255));
-    color.push_back(cv::Scalar(255,0,0));
   }
 
 
@@ -117,45 +113,39 @@
     objPts.clear();
     srcPts.clear();
 
-    std::vector<cv::Point2f> objTemp;
-    std::vector<cv::Point2f> srcTemp;
+    std::vector<cv::Point2f> objTemp, objOut;
+    std::vector<cv::Point2f> srcTemp, srcOut;
     for(size_t i(0); i<objects.size(); i++) {
-      objTemp.clear();
-      srcTemp.clear();
+      objTemp.clear(), objOut.clear();
+      srcTemp.clear(), srcOut.clear();
       for(size_t j(0); j<matches[i].size(); j++) {
 
-        srcTemp.push_back(keypointsSrc[matches[i][j].trainIdx].pt);
-        objTemp.push_back(keypointsObjs[i][matches[i][j].queryIdx].pt);
+        srcOut.push_back(keypointsSrc[matches[i][j].trainIdx].pt);
+        objOut.push_back(keypointsObjs[i][matches[i][j].queryIdx].pt);
       }
       // calculating the homography and getting the mask for inliers
       std::vector<char> inliersTemp(objTemp.size(), 0);
-      cv::Mat homography = findHomography(objTemp, srcTemp, inliersTemp, cv::RANSAC, 3);
+      cv::Mat homography = findHomography(objOut, srcOut, inliersTemp, cv::RANSAC, 3);
 
-      std::cout << "Total features matched: " << srcTemp.size() << std::endl;
+      std::cout << "Total features matched: " << srcOut.size() << std::endl;
       // discarding outliers
       for (int i = 0; i < inliersTemp.size(); i++) {
-        if((int) inliersTemp[i] == 0) {
-          objTemp.erase(objTemp.begin()+i);
-          srcTemp.erase(srcTemp.begin()+i);
+        if((int) inliersTemp[i] == 0);
+        else {
+          objTemp.push_back(objOut[i]);
+          srcTemp.push_back(srcOut[i]);
         }
       }
-
       std::cout << "Total features without outliers matched: " << srcTemp.size() << std::endl;
 
-
       inliers.push_back(inliersTemp);
-
       objPts.push_back(objTemp);
       srcPts.push_back(srcTemp);
-
       H.push_back(homography);
     }
     // get the keypoints from the good matches
     cv::Mat matchedImg;
     for(size_t i(0); i<objects.size(); i++) {
-      std::cout << "keypointsSource: " << keypointsSrc.size() << std::endl;
-      std::cout << "keypointsObject: " << keypointsObjs[i].size() << std::endl;
-      std::cout << "MatchesSize: " << matches[i].size() << std::endl;
       drawMatches(objects[i], keypointsObjs[i], sourceImg, keypointsSrc, matches[i], matchedImg, colors[i], cv::Scalar::all(-1), inliers[i]);
       imshow("match", matchedImg);
       cv::waitKey();
@@ -193,7 +183,6 @@
   void tracker::drawContours(cv::Mat& srcdst, std::vector<std::vector<cv::Point2f>> cornerPoints) {
 
     for (size_t i = 0; i < cornerPoints.size(); i++) {
-      //cv::cornerSubPix(sourceImg, cornerPoints[i], cv::Size(50,50), cv::Size(-1,-1), cv::TermCriteria( cv::TermCriteria::EPS+cv::TermCriteria::COUNT, 100, 0.01));
 
       cv::line(srcdst, cornerPoints[i][0], cornerPoints[i][1], colors[i],2);
       cv::line(srcdst, cornerPoints[i][1], cornerPoints[i][2], colors[i],2);
@@ -224,7 +213,6 @@
           nextTemp.erase(nextTemp.begin()+j);
         }
       }
-      std::cout << "Total tracked ->" << nextTemp.size() << '\n';
       nextPts.push_back(nextTemp);
     }
   }
